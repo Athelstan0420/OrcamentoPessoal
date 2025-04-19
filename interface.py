@@ -25,6 +25,7 @@ cor9 = "#e9edf5" # branco
 #--------------------------------------------
 
 janela = Tk()
+janela.title("Orçamento Pessoal")
 janela.geometry('900x650') # LarguraXComprimento;
 janela.configure(background=cor9) # Cor do fundo;
 janela.resizable(width=FALSE, height=FALSE)
@@ -93,7 +94,7 @@ def grafico_barra():
 
     figura = plt.figure(figsize=(4, 3.35), dpi=60)
     ax = figura.add_subplot(111)
-    ax.autoscale(enable=True, axis='both', tight=None)
+    # ax.autoscale(enable=True, axis='both', tight=None)
 
     ax.bar(lista_categorias, lista_valores, width=0.9) # O parametro "colors=cores" não estava funcionando;
 
@@ -125,6 +126,14 @@ def grafico_barra():
 
     canva = FigureCanvasTkAgg(figura, frame_meio)
     canva.get_tk_widget().place(x=10, y=70)
+
+
+
+
+
+
+
+
 
 
 porcentagem()
