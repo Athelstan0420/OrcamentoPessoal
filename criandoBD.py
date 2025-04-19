@@ -15,7 +15,7 @@ import sqlite3 as lite
 
 try:
     
-    conexao = lite.connect('dados.db') #Criar conexão:
+    conexao = lite.connect('/home/adriel/Documentos/Develop/OrcamentoPessoal/dados.db') #Criar conexão e BD:
     cursor = conexao.cursor() # É através desse cursor que vamos manipular o BD.
 
 
@@ -61,7 +61,7 @@ try:
 
 
     # #para visualizar os dados da tabela:
-    # cursor.execute("SELECT * FROM nometabela")
+    # cursor.execute("SELECT * FROM Receitas")
     # print(cursor.fetchall())
     
 except:
