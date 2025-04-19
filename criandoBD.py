@@ -1,5 +1,7 @@
 """
 
+link: https://youtube.com/playlist?list=PLGFzROSPU9oVmKLaFCZPeJWOCLhyIlYVY&si=eCnEbla4b4CKeNer
+
 Criando um banco de dados com python
 
 lib: sqlite(pip install pysqlite3)
