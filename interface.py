@@ -11,6 +11,7 @@ from matplotlib.figure import Figure
 #--------------------------------------------
 
 #-------------------Cores-------------------------
+cores = ['#5588bb', '#66bbbb', '#99bb55', '#ee9944', '#444466','#bb5555']
 cor0 = "#2e2d2b" # preto
 cor1 = "#feffff" # branco
 cor2 = "#4fa882" # verde/azul claro
@@ -78,7 +79,6 @@ def porcentagem():
     valor_ex = 50
     l_porcentagem = Label(frame_meio, text="{:,.2f}%".format(valor_ex), anchor=NW, font=('Verdana 12'), background=cor1, fg=cor4)
     l_porcentagem.place(x=200, y=35)
-porcentagem()
 
 #------------------------------------------------------------------------------------------------------------
 
@@ -91,19 +91,44 @@ def grafico_barra():
     lista_categorias = ['Renda', 'Despesas', 'Saldo']
     lista_valores = [3000, 2000, 6000]
 
+    figura = plt.figure(figsize=(4, 3.35), dpi=60)
+    ax = figura.add_subplot(111)
+    ax.autoscale(enable=True, axis='both', tight=None)
+
+    ax.bar(lista_categorias, lista_valores, width=0.9) # O parametro "colors=cores" não estava funcionando;
+
+    c = 0
+    for i in ax.patches:
+
+        ax.text(i.get_x()-.001, i.get_height()+.5, str("{:,.0f}".format(lista_valores[c])), fontsize=17, fontstyle='italic', verticalalignment='bottom', color='dimgrey')
+
+        c+=1
+
+    ax.set_xticklabels(lista_categorias, fontsize=16)
+
+    ax.patch.set_facecolor('#ffffff')
+    ax.spines['bottom'].set_color('#CCCCCC')
+    ax.spines['bottom'].set_linewidth(1)
+    ax.spines['right'].set_linewidth(0)
+    ax.spines['top'].set_linewidth(0)
+    ax.spines['left'].set_color('#CCCCCC')
+    ax.spines['left'].set_linewidth(1)
     
 
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['left'].set_visible(False)
+    ax.tick_params(bottom=False, left=False)
+    ax.set_axisbelow(True)
+    ax.yaxis.grid(False, color='#EEEEEE')
+    ax.xaxis.grid(False)
+
+    canva = FigureCanvasTkAgg(figura, frame_meio)
+    canva.get_tk_widget().place(x=10, y=70)
 
 
-
-
-
-
-
-
-
-
-
+porcentagem()
+grafico_barra()
 
 #------------------------------------------------------------------------------------------------------------------------
 janela.mainloop()
