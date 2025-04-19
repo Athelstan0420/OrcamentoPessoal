@@ -100,9 +100,7 @@ def grafico_barra():
 
     c = 0
     for i in ax.patches:
-
         ax.text(i.get_x()-.001, i.get_height()+.5, str("{:,.0f}".format(lista_valores[c])), fontsize=17, fontstyle='italic', verticalalignment='bottom', color='dimgrey')
-
         c+=1
 
     ax.set_xticklabels(lista_categorias, fontsize=16)
@@ -127,17 +125,67 @@ def grafico_barra():
     canva = FigureCanvasTkAgg(figura, frame_meio)
     canva.get_tk_widget().place(x=10, y=70)
 
+#------------------------------------------------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------------------------------------------------
+#Função Resumo:
+#------------------------------------------------------------------------------------------------------------------------
+
+def resumo():
+    valor = [5000,6000,7000]
+    l_linha = Label(frame_meio, text='', width=45, height=1, anchor=NW, font=('Arial 1'), bg='#545454' )
+    l_linha.place(x=309, y=52)
+    l_mensal_valor = Label(frame_meio, text='Total renda mensal      '.upper(), anchor=NW, font=('Verdana 12'), bg=cor1, fg=cor6)
+    l_mensal_valor.place(x=309, y=35)
+    l_mensal_valor = Label(frame_meio, text='R$ {:,.2f}'.format(valor[0]), anchor=NW, font=('Arial 12'), bg=cor1, fg=cor0)
+    l_mensal_valor.place(x=309, y=70)
+#------------------------------------------------------------------------------------------------------------------------
+    l_linha = Label(frame_meio, text='', width=45, height=1, anchor=NW, font=('Arial 1'), bg='#545454' )
+    l_linha.place(x=309, y=132)
+    l_despesas_valor = Label(frame_meio, text='Total despesas mensais '.upper(), anchor=NW, font=('Verdana 12'), bg=cor1, fg=cor6)
+    l_despesas_valor.place(x=309, y=115)
+    l_despesas_valor = Label(frame_meio, text='R$ {:,.2f}'.format(valor[1]), anchor=NW, font=('Arial 12'), bg=cor1, fg=cor0)
+    l_despesas_valor.place(x=309, y=150)
+#------------------------------------------------------------------------------------------------------------------------
+    l_linha = Label(frame_meio, text='', width=45, height=1, anchor=NW, font=('Arial 1'), bg='#545454' )
+    l_linha.place(x=309, y=207)
+    l_saldo_valor = Label(frame_meio, text='Total saldo caixa      '.upper(), anchor=NW, font=('Verdana 12'), bg=cor1, fg=cor6)
+    l_saldo_valor.place(x=309, y=190)
+    l_saldo_valor = Label(frame_meio, text='R$ {:,.2f}'.format(valor[2]), anchor=NW, font=('Arial 12'), bg=cor1, fg=cor0)
+    l_saldo_valor.place(x=309, y=225)
+
+#------------------------------------------------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------------------------------------------------
+#Função Gráfico:
+#------------------------------------------------------------------------------------------------------------------------
+
+frame_grafico_pizza = Frame(frame_meio, width=580, height=250, background=cor1, relief="flat") # flat = algo liso;
+frame_grafico_pizza.place(x=415, y=5)
+
+def grafico_pizza():
+    figura = plt.Figure(figsize=(5,3), dpi=90)
+    ax = figura.add_subplot(111)
+
+    lista_valores = [345,2345,234]
+    lista_categorias = ['Renda', 'Despesas', 'saldo']
 
 
+    explode = []
 
+    for i in lista_categorias:
+        explode.append(0.05)
+    
+    ax.pie(lista_valores, explode=explode, wedgeprops=dict(width=0.2), autopct='%1.1f%%', shadow=True, startangle=90)
+    ax.legend(lista_categorias, loc='center right', bbox_to_anchor=(1.55, 0.50))
 
-
-
-
-
+    canva_categoria = FigureCanvasTkAgg(figura, frame_grafico_pizza)
+    canva_categoria.get_tk_widget().grid(row=0, column=0)
 
 porcentagem()
 grafico_barra()
+resumo()
+grafico_pizza()
 
 #------------------------------------------------------------------------------------------------------------------------
 janela.mainloop()
