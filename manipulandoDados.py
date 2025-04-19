@@ -53,6 +53,7 @@ try:
 
 #--------------------------------------------------------------------------------------------------------
 
+    # Ver categorias:
     lista_itens = []
     with conexao:
         cursor.execute("SELECT * FROM Categorias")
