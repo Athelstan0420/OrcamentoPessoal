@@ -181,11 +181,35 @@ def grafico_pizza():
 
     canva_categoria = FigureCanvasTkAgg(figura, frame_grafico_pizza)
     canva_categoria.get_tk_widget().grid(row=0, column=0)
+#--------------------------------------------------------------------------------------------------------------
 
 porcentagem()
 grafico_barra()
 resumo()
 grafico_pizza()
+
+#--------------------------------------------------------------------------------------------------------------
+# Frames da parte de baixo:
+#--------------------------------------------------------------------------------------------------------------
+
+titulo_legenda = Label(frame_meio, text="Tabelas de Receitas e Despesas",anchor=NW, font=("Verdana 12 bold"), bg=cor1, fg=cor4)
+titulo_legenda.place(x=5, y=309)
+
+frame_renda = Frame(frame_baixo, width=300, height=250, bg=cor1)
+frame_renda.grid(row=0, column=0)
+
+
+frame_operacoes = Frame(frame_baixo, width=220, height=250, bg=cor1)
+frame_operacoes.grid(row=0, column=1, padx=5)
+
+
+frame_config = Frame(frame_baixo, width=220, height=250, bg=cor1)
+frame_config.grid(row=0, column=2, padx=5)
+#--------------------------------------------------------------------------------------------------------------
+
+
+
+
 
 #------------------------------------------------------------------------------------------------------------------------
 janela.mainloop()
