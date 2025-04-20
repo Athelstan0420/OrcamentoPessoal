@@ -1,4 +1,8 @@
 
+"""
+Frame = Elementos de uma interface gráfica;
+
+"""
 from tkinter import * # Para criação de janelas em python;
 from tkinter import Tk, ttk
 from PIL import Image, ImageTk # Para manipular imagens em python;
@@ -8,6 +12,14 @@ from tkinter.ttk import Progressbar # Barra de progresso do tkinter;
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg 
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
+#--------------------------------------------
+
+# importando tkcalendar(pip install)
+
+from tkcalendar import Calendar, DateEntry
+from datetime import date
+
+
 #--------------------------------------------
 
 #-------------------Cores-------------------------
@@ -28,7 +40,7 @@ janela = Tk()
 janela.title("Orçamento Pessoal")
 janela.geometry('900x650') # LarguraXComprimento;
 janela.configure(background=cor9) # Cor do fundo;
-janela.resizable(width=FALSE, height=FALSE)
+janela.resizable(width=FALSE, height=FALSE) #Permite redimensionar a tela ou não;
 estilo = ttk.Style(janela) # para aplicar estilo a janela;
 estilo.theme_use("clam") #Aplicando um tema;
 
@@ -65,8 +77,9 @@ app_logo.place(x=0, y=0)
 
 def porcentagem():
 
-    l_nome = Label(frame_meio, text="Porcentagem da Receita Gasta", height=1, anchor=NW, font=('Verdana 12'), background=cor1, fg=cor4)
+    l_nome = Label(frame_meio, text="Porcentagem da Receita Gasta", height=1, anchor=NW, font=('Verdana 12 bold'), background=cor1, fg=cor4)
     l_nome.place(x=7, y=5)
+
     #Para barra de progresso:
     barra = Progressbar(frame_meio, length=180)
     barra.place(x=10, y=35)
@@ -157,13 +170,14 @@ def resumo():
 #------------------------------------------------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------------------------------------------------
-#Função Gráfico:
+#Função Gráfico pizza:
 #------------------------------------------------------------------------------------------------------------------------
 
 frame_grafico_pizza = Frame(frame_meio, width=580, height=250, background=cor1, relief="flat") # flat = algo liso;
 frame_grafico_pizza.place(x=415, y=5)
 
 def grafico_pizza():
+
     figura = plt.Figure(figsize=(5,3), dpi=90)
     ax = figura.add_subplot(111)
 
@@ -198,19 +212,145 @@ titulo_legenda.place(x=5, y=309)
 frame_renda = Frame(frame_baixo, width=300, height=250, bg=cor1)
 frame_renda.grid(row=0, column=0)
 
+frame_despesas = Frame(frame_baixo, width=220, height=250, bg=cor1)
+frame_despesas.grid(row=0, column=1, padx=5)
 
-frame_operacoes = Frame(frame_baixo, width=220, height=250, bg=cor1)
-frame_operacoes.grid(row=0, column=1, padx=5)
+frame_receitas = Frame(frame_baixo, width=220, height=250, bg=cor1)
+frame_receitas.grid(row=0, column=2, padx=5)
 
-
-frame_config = Frame(frame_baixo, width=220, height=250, bg=cor1)
-frame_config.grid(row=0, column=2, padx=5)
 #--------------------------------------------------------------------------------------------------------------
 
+#--------------------------------------------------------------------------------------------------------------
+# Função para mostrar tabela:
+#--------------------------------------------------------------------------------------------------------------
 
+def mostrar_Tabela_renda():
 
+    cabecalho_tabela = ['#Id', 'Categorias', 'Data', 'Quantia']
 
+    lista_itens = [[0,2,3,4],[0,2,3,4],[0,2,3,4],[0,2,3,4]]
 
+    global tree
+
+    tree = ttk.Treeview(frame_renda, selectmode='extended', columns=cabecalho_tabela, show='headings')
+
+    barra_vertical_scroll = ttk.Scrollbar(frame_renda, orient='vertical', command=tree.yview)
+
+    barra_horizontal_scroll = ttk.Scrollbar(frame_renda, orient='horizontal', command=tree.xview)
+
+    tree.configure(yscrollcommand=barra_vertical_scroll.set, xscrollcommand=barra_horizontal_scroll.set)
+
+    tree.grid(column=0,row=0,sticky='nsew')
+    barra_vertical_scroll.grid(column=1,row=0,sticky='ns')
+    barra_horizontal_scroll.grid(column=0,row=1,sticky='ew')
+
+    hd = ['center','center', 'center', 'center']
+    h = [30,100,100,100]
+    n=0
+
+    for coluna in cabecalho_tabela:
+        tree.heading(coluna, text=coluna.title(), anchor=CENTER)
+        tree.column(coluna,width=h[n], anchor=hd[n])
+
+        n+=1
+    
+    for item in lista_itens:
+        tree.insert('', 'end', values=item)
+mostrar_Tabela_renda()
 #------------------------------------------------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------------------------------------
+# Inserir novas despesas:
+#--------------------------------------------------------------------------------------------------------------
+
+#pip install tkcaledndar;
+
+#Configuração despesas:
+nome_despesas = Label(frame_despesas, text='Inserir novas despesas', height=1,anchor=NW, font=('Verdana 10 bold'), bg=cor1, fg=cor4)
+nome_despesas.place(x=10,y=10)
+nome_categoria = Label(frame_despesas, text='Categoria', height=1,anchor=NW, font=('Ivy 10'), bg=cor1, fg=cor4)
+nome_categoria.place(x=10,y=40)
+
+# Pegando/criando categoria:
+lista_categorias = ['Viagem', 'Comida']
+categorias = []
+for i in lista_categorias:
+    categorias.append(i[1])
+
+#Criando caixa de seleção:
+combo_categoria_despesas = ttk.Combobox(frame_despesas, width=10, font=('Ivy 10'))
+combo_categoria_despesas['values'] = (categorias)
+combo_categoria_despesas.place(x=112, y=41)
+
+nome_data = Label(frame_despesas, text='Data', height=1,anchor=NW, font=('Ivy 10'), bg=cor1, fg=cor4)
+nome_data.place(x=10,y=70)
+
+#Criando calendário:
+calendario = DateEntry(frame_despesas, width=12, background='darkblue', forefround='white', borderwidth=2, year=2022)
+calendario.place(x=112, y=71)
+
+#Quantia total / Caixa de entrada para valor:
+nome_quantia = Label(frame_despesas, text='Quantia total', height=1,anchor=NW, font=('Ivy 10'), bg=cor1, fg=cor4)
+nome_quantia.place(x=10,y=100)
+quantia_valor = Entry(frame_despesas, width=14, justify='left', relief='solid')
+quantia_valor.place(x=112, y=100)
+
+#Botão de inserir:
+pegar_img1 = Image.open("/home/adriel/Documentos/Develop/OrcamentoPessoal/adicionar.png") # Acessar imagem;
+pegar_img1 = pegar_img1.resize((17,17)) #Altura e Largura;
+pegar_img1 = ImageTk.PhotoImage(pegar_img1) # Conversão/Preparação para a imagem ser usada;
+botao1 = Button(frame_despesas, image=pegar_img1, text="Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7'), bg=cor1, fg=cor0, overrelief=RIDGE)
+botao1.place(x=112, y=131)
+
+#Botão remover:
+pegar_img2 = Image.open("/home/adriel/Documentos/Develop/OrcamentoPessoal/deletar.png") # Acessar imagem;
+pegar_img2 = pegar_img2.resize((17,17)) #Altura e Largura;
+pegar_img2 = ImageTk.PhotoImage(pegar_img2) # Conversão/Preparação para a imagem ser usada;
+excluir_acao = Label(frame_despesas, text='Excluir ação', height=1,anchor=NW, font=('Ivy 10 bold'), bg=cor1, fg=cor4)
+excluir_acao.place(x=10,y=180)
+botao2 = Button(frame_despesas, image=pegar_img2, text="Deletar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7'), bg=cor1, fg=cor0, overrelief=RIDGE)
+botao2.place(x=112, y=180)
+#--------------------------------------------------------------------------------------------------------------
+
+#Configuração receitas:
+nome_receitas = Label(frame_receitas, text='Inserir novas receitas', height=1,anchor=NW, font=('Verdana 10 bold'), bg=cor1, fg=cor4)
+nome_receitas.place(x=10,y=10)
+
+#data 2:
+nome_data2 = Label(frame_receitas, text='Data', height=1,anchor=NW, font=('Ivy 10'), bg=cor1, fg=cor4)
+nome_data2.place(x=10,y=40)
+#Criando calendário:
+calendario2 = DateEntry(frame_receitas, width=12, background='darkblue', forefround='white', borderwidth=2, year=2022)
+calendario2.place(x=112, y=41)
+
+#Quantia total / Caixa de entrada para valor2:
+nome_quantia2 = Label(frame_receitas, text='Quantia total', height=1,anchor=NW, font=('Ivy 10'), bg=cor1, fg=cor4)
+nome_quantia2.place(x=10,y=70)
+quantia_valor2 = Entry(frame_receitas, width=14, justify='left', relief='solid')
+quantia_valor2.place(x=112, y=71)
+
+#Botão de inserir3:
+pegar_img3 = Image.open("/home/adriel/Documentos/Develop/OrcamentoPessoal/adicionar.png") # Acessar imagem;
+pegar_img3 = pegar_img3.resize((17,17)) #Altura e Largura;
+pegar_img3 = ImageTk.PhotoImage(pegar_img3) # Conversão/Preparação para a imagem ser usada;
+botao1 = Button(frame_receitas, image=pegar_img3, text="Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7'), bg=cor1, fg=cor0, overrelief=RIDGE)
+botao1.place(x=112, y=100)
+
+#Inserir Novas categorias:
+nome_categoria2 = Label(frame_receitas, text='categoria', height=1,anchor=NW, font=('Ivy 10'), bg=cor1, fg=cor4)
+nome_categoria2.place(x=10,y=140)
+#Caixa de entrada para categoria 2:
+new_categoria_valor = Entry(frame_receitas, width=14, justify='left', relief='solid')
+new_categoria_valor.place(x=112, y=140)
+
+#Botão de inserir 4:
+pegar_img4 = Image.open("/home/adriel/Documentos/Develop/OrcamentoPessoal/adicionar.png") # Acessar imagem;
+pegar_img4 = pegar_img4.resize((17,17)) #Altura e Largura;
+pegar_img4 = ImageTk.PhotoImage(pegar_img4) # Conversão/Preparação para a imagem ser usada;
+botao1 = Button(frame_receitas, image=pegar_img4, text="Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7'), bg=cor1, fg=cor0, overrelief=RIDGE)
+botao1.place(x=112, y=170)
+
+
+
 janela.mainloop()
 
