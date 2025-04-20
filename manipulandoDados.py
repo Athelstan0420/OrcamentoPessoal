@@ -1,6 +1,6 @@
 #importando libre sqlite3
 import sqlite3 as lite 
-from criandoBD import tabelas
+#from criandoBD import tabelas
 
 
 try:
@@ -17,22 +17,22 @@ try:
 
     def BD_inserir_Categorias():
         with conexaoBD:
-            consulta = "INSERT INTO Categorias (nome) VALUES (?)"
-            cursorBD.execute(consulta, ["Compras"])
+            consultaBD = "INSERT INTO Categorias (nome) VALUES (?)"
+            cursorBD.execute(consultaBD, ["Compras"])
             #conexao.commit() #Para enviar dados a tabela. 
     # inserir_Cateorias()
     
     def BD_inserir_Receitas(): 
         with conexaoBD:
-            consulta = "INSERT INTO Receitas (categoria, adicionado_em, valor) VALUES (?, ?, ?)"
-            cursorBD.execute(consulta, ["teste1", "12/03/2020", "100"])
+            consultaBD = "INSERT INTO Receitas (categoria, adicionado_em, valor) VALUES (?, ?, ?)"
+            cursorBD.execute(consultaBD, ["teste1", "12/03/2020", "100"])
             # conexao.commit() #Para enviar dados a tabela. 
     # inserir_Receitas()
     
     def BD_inserir_Gastos():
         with conexaoBD:
-            consulta = "INSERT INTO Gastos (categoria, retirado_em, valor) VALUES (?, ?, ?)"
-            cursorBD.execute(consulta, ["teste3", "31/03/2015", "50"])
+            consultaBD = "INSERT INTO Gastos (categoria, retirado_em, valor) VALUES (?, ?, ?)"
+            cursorBD.execute(consultaBD, ["teste3", "31/03/2015", "50"])
             #conexao.commit() #Para enviar dados a tabela. 
     # inserir_Gastos()
 #--------------------------------------------------------------------------------------------------------
@@ -41,20 +41,20 @@ try:
 
     def BD_deletar_Categorias():
         with conexaoBD:
-            consulta = "DELETE FROM Categorias WHERE id=?"
-            cursorBD.execute(consulta, "1")
+            consultaBD = "DELETE FROM Categorias WHERE id=?"
+            cursorBD.execute(consultaBD, "1")
     # deletar_Categorias()
     
     def BD_deletar_Receitas():
         with conexaoBD:
-            consulta = "DELETE FROM Receitas WHERE id=?"
-            cursorBD.execute(consulta, "1")
+            consultaBD = "DELETE FROM Receitas WHERE id=?"
+            cursorBD.execute(consultaBD, "1")
     # deletar_Receitas()
 
     def BD_deletar_Gastos():
         with conexaoBD:
-            consulta = "DELETE FROM Gastos WHERE id=?"
-            cursorBD.execute(consulta, "1")
+            consultaBD = "DELETE FROM Gastos WHERE id=?"
+            cursorBD.execute(consultaBD, "1")
     # deletar_Gastos()
 
 #--------------------------------------------------------------------------------------------------------
