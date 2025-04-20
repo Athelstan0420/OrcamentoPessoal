@@ -312,6 +312,10 @@ botao2 = Button(frame_despesas, image=pegar_img2, text="Deletar".upper(), width=
 botao2.place(x=112, y=180)
 #--------------------------------------------------------------------------------------------------------------
 
+#--------------------------------------------------------------------------------------------------------------
+# Inserir novas receitas:
+#--------------------------------------------------------------------------------------------------------------
+
 #Configuração receitas:
 nome_receitas = Label(frame_receitas, text='Inserir novas receitas', height=1,anchor=NW, font=('Verdana 10 bold'), bg=cor1, fg=cor4)
 nome_receitas.place(x=10,y=10)
@@ -351,6 +355,6 @@ botao1 = Button(frame_receitas, image=pegar_img4, text="Adicionar".upper(), widt
 botao1.place(x=112, y=170)
 
 
-
+#--------------------------------------------------------------------------------------------------------------
 janela.mainloop()
 
