@@ -15,21 +15,21 @@ try:
 #Inserindo:
 #--------------------------------------------------------------------------------------------------------
 
-    def inserir_Categorias():
+    def BD_inserir_Categorias():
         with conexaoBD:
             consulta = "INSERT INTO Categorias (nome) VALUES (?)"
             cursorBD.execute(consulta, ["Compras"])
             #conexao.commit() #Para enviar dados a tabela. 
     # inserir_Cateorias()
     
-    def inserir_Receitas(): 
+    def BD_inserir_Receitas(): 
         with conexaoBD:
             consulta = "INSERT INTO Receitas (categoria, adicionado_em, valor) VALUES (?, ?, ?)"
             cursorBD.execute(consulta, ["teste1", "12/03/2020", "100"])
             # conexao.commit() #Para enviar dados a tabela. 
     # inserir_Receitas()
     
-    def inserir_Gastos():
+    def BD_inserir_Gastos():
         with conexaoBD:
             consulta = "INSERT INTO Gastos (categoria, retirado_em, valor) VALUES (?, ?, ?)"
             cursorBD.execute(consulta, ["teste3", "31/03/2015", "50"])
@@ -39,19 +39,19 @@ try:
 # Deletando:
 #--------------------------------------------------------------------------------------------------------
 
-    def deletar_Categorias():
+    def BD_deletar_Categorias():
         with conexaoBD:
             consulta = "DELETE FROM Categorias WHERE id=?"
             cursorBD.execute(consulta, "1")
     # deletar_Categorias()
     
-    def deletar_Receitas():
+    def BD_deletar_Receitas():
         with conexaoBD:
             consulta = "DELETE FROM Receitas WHERE id=?"
             cursorBD.execute(consulta, "1")
     # deletar_Receitas()
 
-    def deletar_Gastos():
+    def BD_deletar_Gastos():
         with conexaoBD:
             consulta = "DELETE FROM Gastos WHERE id=?"
             cursorBD.execute(consulta, "1")
@@ -63,7 +63,7 @@ try:
 
     # tabelas()
 
-    def vizualizar_categorias():
+    def BD_vizualizar_categorias():
         lista_itens = []
         with conexaoBD:
             cursorBD.execute("SELECT * FROM Categorias")
@@ -73,7 +73,7 @@ try:
         # print(lista_itens)
 
     # Ver Receitas
-    def vizu_receitas():
+    def BD_vizu_receitas():
         lista_itens = []
         with conexaoBD:
             cursorBD.execute("SELECT * FROM Receitas")
@@ -83,7 +83,7 @@ try:
         # print(lista_itens)
 
     # Ver Gastos
-    def vizu_gastos():
+    def BD_vizu_gastos():
         lista_itens = []
         with conexaoBD:
             cursorBD.execute("SELECT * FROM Gastos")
