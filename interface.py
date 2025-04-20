@@ -337,7 +337,7 @@ botao1 = Button(frame_receitas, image=pegar_img3, text="Adicionar".upper(), widt
 botao1.place(x=112, y=100)
 
 #Inserir Novas categorias:
-nome_categoria2 = Label(frame_receitas, text='categoria', height=1,anchor=NW, font=('Ivy 10'), bg=cor1, fg=cor4)
+nome_categoria2 = Label(frame_receitas, text='categoria', height=1,anchor=NW, font=('Ivy 10  bold'), bg=cor1, fg=cor4)
 nome_categoria2.place(x=10,y=140)
 #Caixa de entrada para categoria 2:
 new_categoria_valor = Entry(frame_receitas, width=14, justify='left', relief='solid')
