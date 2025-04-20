@@ -1,32 +1,26 @@
-"""
-
-link: https://youtube.com/playlist?list=PLGFzROSPU9oVmKLaFCZPeJWOCLhyIlYVY&si=eCnEbla4b4CKeNer
-
-Criando um banco de dados com python
-
-lib: sqlite(pip install pysqlite3)
-
-sqlite não é indicado para aplicações com grandes fluxos. 
-
 
 """
+- Criando um banco de dados com python
+- lib: sqlite(pip install pysqlite3)
+- sqlite não é indicado para aplicações com grandes fluxos. 
+"""
 
-#impotando sqlite:
+#impotando sqlite - Para utilizar o MySQL:
 import sqlite3 as lite
 
 try:
     
-    conexao = lite.connect('/home/adriel/Documentos/Develop/OrcamentoPessoal/dados.db') #Criar conexão e BD:
-    cursor = conexao.cursor() # É através desse cursor que vamos manipular o BD.
+    conexaoBD = lite.connect('/home/adriel/Documentos/Develop/OrcamentoPessoal/dados.db') #Criar conexão e BD:
+    cursorBD = conexaoBD.cursor() # É através desse cursor que vamos manipular o BD.
 
 #--------------------------------------------------------------------------------------------------
     #Criando tabelas:
 #--------------------------------------------------------------------------------------------------
 
     #Tabela categoria:
-    def tab_Categorias():
-        with conexao:
-            cursor.execute(
+    def BD_tab_Categorias():
+        with conexaoBD:
+            cursorBD.execute(
             """  
                 CREATE TABLE Categorias( 
                 
@@ -36,9 +30,9 @@ try:
                 ) 
             """)
     #Tabela de receitas:
-    def tab_Receitas():
-        with conexao:
-            cursor.execute(
+    def BD_tab_Receitas():
+        with conexaoBD:
+            cursorBD.execute(
             """  
                 CREATE TABLE Receitas(
                 
@@ -51,9 +45,9 @@ try:
             """)
 
     #Tabela de gastos:
-    def tab_Gastos():
-        with conexao:
-            cursor.execute(
+    def BD_tab_Gastos():
+        with conexaoBD:
+            cursorBD.execute(
             """  
                 CREATE TABLE Gastos(
                 
@@ -69,14 +63,15 @@ try:
     # tab_Receitas()
     # tab_Gastos()
 
-    #para visualizar os dados da tabela:
-    def tabelas():
-        cursor.execute("SELECT * FROM Categorias")
-        print(cursor.fetchall())
-        cursor.execute("SELECT * FROM Receitas")
-        print(cursor.fetchall())
-        cursor.execute("SELECT * FROM Gastos")
-        print(cursor.fetchall())
+
+    # #para visualizar os dados da tabela:
+    # def tabelas():
+    #     cursor.execute("SELECT * FROM Categorias")
+    #     print(cursor.fetchall())
+    #     cursor.execute("SELECT * FROM Receitas")
+    #     print(cursor.fetchall())
+    #     cursor.execute("SELECT * FROM Gastos")
+    #     print(cursor.fetchall())
     #tabelas()
     
 except:
